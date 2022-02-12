@@ -1,0 +1,235 @@
+body{
+    font-family: Century Gothic, CenturyGothic, AppleGothic, sans-serif;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    background: black;
+}
+
+header {
+    position: relative;
+    width: 100%;
+    height: 80px;
+    background: rgb(105, 99, 101);
+    z-index: 10;
+}
+
+header::after {
+    content: '';
+    display: table;
+    clear: both;
+}
+
+nav {
+    margin: auto;
+    padding-right: 10%;
+}
+
+nav ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    text-align: center;
+}
+
+nav li {
+    display: inline-block;
+    margin-left: 70px;
+    padding-top: 25px;
+    position: relative;
+    padding-bottom: 25px;
+}
+
+nav a {
+    font: Century Gothic, CenturyGothic, AppleGothic, sans-serif;
+    font-weight: bold;
+    font-size: 1.4em;
+    color: white;
+    text-decoration: none;
+    transition: 0.2s;
+    
+}
+
+nav a:hover {
+    color: black;
+}
+
+nav a::before {
+    content: '';
+    display: block;
+    height: 5px;
+    width: 100%;
+    background-color: black;
+    position: absolute;
+    top: 0;
+    width: 0%;
+    transition: 0.2s;
+}
+
+nav a:hover::before{
+    width: 100%;
+}
+
+#content {
+    position: relative;
+}
+
+h2 {
+    font-size: 2em;
+    color: white;
+    text-align: center;
+    margin: 2px;
+}
+
+#logo {
+    position: relative;
+    float: left;
+    margin: 0px 36px;
+    width: 100px;
+}
+
+.menu {
+    font-weight: bold;
+}
+
+.container {
+    position: relative;
+    height: 300px;
+    display:inline-block;
+    margin: 2px;
+}
+
+.raw_image {
+    display: block;
+    width: 100%;
+
+}
+
+.image_overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6);
+    color: #ffffff;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.25s;
+}
+
+.image_overlay > * {
+    transform: translateY(20px);
+    transition: transform 0.25s;
+}
+
+.image_overlay:hover {
+    opacity: 1;
+}
+
+.image_overlay:hover > * {
+    transform: translateY(0);
+}
+
+.title {
+    font-size: 1.5em;
+    font-weight: bold;
+}
+
+.category {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 2px;
+    padding: 2px;
+    background: black;
+    height: 300px;
+}
+
+.button {
+    margin: 10px;
+    background: rgb(105, 99, 101);
+    border-radius: 60%;
+    box-shadow: rgb(105, 99, 101) 0 10px 20px -10px;
+    box-sizing: border-box;
+    color: #FFFFFF;
+    cursor: pointer;
+    font-family: Century Gothic, CenturyGothic, AppleGothic, sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 24px;
+    opacity: 1;
+    outline: 0 solid transparent;
+    padding: 8px 18px;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+    width: fit-content;
+    word-break: break-word;
+    border: 0;
+    transition: 0.25s;
+    }
+
+.button:hover {
+    background: #dd3b3b;
+    box-shadow: #ff7777 0 10px 20px -10px;
+}
+
+
+ /* The Modal (background) */
+ .modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+  }
+  
+  /* Modal Content/Box */
+  .modal-content {
+    background-color: black;
+    color: white;
+    margin: 15% auto; /* 15% from the top and centered */
+    padding: 10px;
+    border: 1px solid #888;
+    width: 80%; /* Could be more or less, depending on screen size */
+    z-index: 2;
+  }
+  
+  /* The Close Button */
+  .close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+  }
+  
+  .close:hover,
+  .close:focus {
+    color: white;
+    text-decoration: none;
+    cursor: pointer;
+  } 
+
+  p,
+  dt {
+      font-weight: bold;
+  }
+  
+  dl,
+  dd {
+      font-size: .9rem;
+  }
+  
+  dd {
+      margin-bottom: 1em;
+  }
+  
