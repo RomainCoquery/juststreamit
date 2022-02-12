@@ -1,7 +1,7 @@
-var top_film_page = 1
-var adventure_film_page = 1
-var family_film_page = 1
-var action_film_page = 1
+let top_film_page = 1
+let adventure_film_page = 1
+let family_film_page = 1
+let action_film_page = 1
 
 function get_films(source, page, category, button) {
   const films = document.getElementById(source);
@@ -32,7 +32,7 @@ function get_films(source, page, category, button) {
 }
 
 function suggested_films(source) {
-  var page = Math.floor(Math.random() * 85850);
+  let page = Math.floor(Math.random() * 85850);
   const films = document.getElementById(source);
   fetch('http://127.0.0.1:8000/api/v1/titles/?page=' + page + '&page_size=1')
     .then(response => response.json())
@@ -61,39 +61,39 @@ function suggested_films(source) {
 }
 
 function next(source, page, category, button) {
-  var parent = document.getElementById(source);
-  var child = parent.getElementsByClassName("container")[0];
+  let parent = document.getElementById(source);
+  let child = parent.getElementsByClassName("container")[0];
   parent.removeChild(child)
-  var child = parent.getElementsByClassName("container")[0];
+  child = parent.getElementsByClassName("container")[0];
   parent.removeChild(child)
-  var child = parent.getElementsByClassName("container")[0];
+  child = parent.getElementsByClassName("container")[0];
   parent.removeChild(child)
-  var child = parent.getElementsByClassName("container")[0];
+  child = parent.getElementsByClassName("container")[0];
   parent.removeChild(child)
-  var child = parent.getElementsByClassName("container")[0];
+  child = parent.getElementsByClassName("container")[0];
   parent.removeChild(child)
-  var child = parent.getElementsByClassName("container")[0];
+  child = parent.getElementsByClassName("container")[0];
   parent.removeChild(child)
-  var child = parent.getElementsByClassName("container")[0];
+  child = parent.getElementsByClassName("container")[0];
   parent.removeChild(child)
   get_films(source, page, category, button)
 }
 
 function back(source, page, category, button) {
-  var parent = document.getElementById(source);
-  var child = parent.getElementsByClassName("container")[0];
+  let parent = document.getElementById(source);
+  let child = parent.getElementsByClassName("container")[0];
   parent.removeChild(child)
-  var child = parent.getElementsByClassName("container")[0];
+  child = parent.getElementsByClassName("container")[0];
   parent.removeChild(child)
-  var child = parent.getElementsByClassName("container")[0];
+  child = parent.getElementsByClassName("container")[0];
   parent.removeChild(child)
-  var child = parent.getElementsByClassName("container")[0];
+  child = parent.getElementsByClassName("container")[0];
   parent.removeChild(child)
-  var child = parent.getElementsByClassName("container")[0];
+  child = parent.getElementsByClassName("container")[0];
   parent.removeChild(child)
-  var child = parent.getElementsByClassName("container")[0];
+  child = parent.getElementsByClassName("container")[0];
   parent.removeChild(child)
-  var child = parent.getElementsByClassName("container")[0];
+  child = parent.getElementsByClassName("container")[0];
   parent.removeChild(child)
  get_films(source, page, category, button)
 }
@@ -164,7 +164,7 @@ function action_back() {
   }
 }
 
-var images = document.getElementsByClassName("image_overlay")
+let images = document.getElementsByClassName("image_overlay")
 for (const image of Object.values(images)) {
   console.log(image)
   image.onclick = function() {
@@ -172,17 +172,17 @@ for (const image of Object.values(images)) {
   }
 }
 
-var modal = document.getElementById("myModal");
+let modal = document.getElementById("myModal");
 function add_click_event(div, id) {
   div.onclick = function() {
-    var modal = document.getElementById("myModal");
+    let modal = document.getElementById("myModal");
     console.log("click")
     fetch('http://127.0.0.1:8000/api/v1/titles/' + id)
     .then(response => response.json())
     .then(data => {
       modal.style.display = "block";
       console.log(data);
-      var text_space = document.getElementById('text_space');
+      let text_space = document.getElementById('text_space');
       let text_div = document.createElement('div');
       text_div.className = "text_div";
       let image = document.createElement('img');
@@ -263,7 +263,7 @@ function add_click_event(div, id) {
   }
 }
 
-var span = document.getElementsByClassName("close")[0];
+let span = document.getElementsByClassName("close")[0];
 
 // When the user click on <span> (x), close the modal
 span.onclick = function() {
