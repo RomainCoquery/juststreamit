@@ -5,60 +5,47 @@ let adventure_film_page = 1
 let family_film_page = 1
 let action_film_page = 1
 
-function get_films(source, page, category, button) {
+function display_films(source, titles, button) {
   const films = document.getElementById(source);
+  let div = document.createElement('div');
+  div.className = "container"
+  let img_src = document.createElement('img');
+  img_src.className = "raw_image"
+  img_src.src = titles.image_url;
+  div.appendChild(img_src)
+  let img_div = document.createElement('div');
+  img_div.className = "image_overlay"
+  let img_name = document.createElement('div');
+  img_name.className = "title"
+  img_name.textContent = titles.title;
+  img_div.appendChild(img_name)
+  div.appendChild(img_div)
+  films.appendChild(div)
+  add_click_event(img_div, titles.id)
+
+  document.getElementById(source).appendChild(
+  document.getElementById(button)
+    );
+}
+
+function get_films(source, page, category, button) {
   fetch(mainUrl + page + '&page_size=7&genre=' + category + '&sort_by=-imdb_score')
     .then(response => response.json())
     .then(data => {
       data.results.forEach((titles) => {
-        let div = document.createElement('div');
-        div.className = "container"
-        let img_src = document.createElement('img');
-        img_src.className = "raw_image"
-        img_src.src = titles.image_url;
-        div.appendChild(img_src)
-        let img_div = document.createElement('div');
-        img_div.className = "image_overlay"
-        let img_name = document.createElement('div');
-        img_name.className = "title"
-        img_name.textContent = titles.title;
-        img_div.appendChild(img_name)
-        div.appendChild(img_div)
-        films.appendChild(div)
-        add_click_event(img_div, titles.id)
-      })
-    document.getElementById(source).appendChild(
-    document.getElementById(button)
-      );
+        display_films(source, titles, button);
+      });
     });
 }
 
 function suggested_films(source) {
   let page = Math.floor(Math.random() * 85850);
-  const films = document.getElementById(source);
   fetch(mainUrl + page + '&page_size=1')
     .then(response => response.json())
     .then(data => {
       data.results.forEach((titles) => {
-        let div = document.createElement('div');
-        div.className = "container"
-        let img_src = document.createElement('img');
-        img_src.className = "raw_image"
-        img_src.src = titles.image_url;
-        div.appendChild(img_src)
-        let img_div = document.createElement('div');
-        img_div.className = "image_overlay"
-        let img_name = document.createElement('div');
-        img_name.className = "title"
-        img_name.textContent = titles.title;
-        img_div.appendChild(img_name)
-        div.appendChild(img_div)
-        films.appendChild(div)
-        add_click_event(img_div, titles.id)
-      })
-    document.getElementById(source).appendChild(
-    document.getElementById(button)
-    );
+        display_films(source, titles);
+      });
     });
 }
 
@@ -168,17 +155,13 @@ function action_back() {
 
 let images = document.getElementsByClassName("image_overlay")
 for (const image of Object.values(images)) {
-  console.log(image)
-  image.onclick = function() {
-    console.log("click", image)
-  }
+  image.onclick = function() {}
 }
 
 let modal = document.getElementById("myModal");
 function add_click_event(div, id) {
   div.onclick = function() {
     let modal = document.getElementById("myModal");
-    console.log("click")
     fetch('http://127.0.0.1:8000/api/v1/titles/' + id)
     .then(response => response.json())
     .then(data => {
