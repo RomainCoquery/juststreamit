@@ -1,3 +1,5 @@
+const mainUrl = 'http://127.0.0.1:8000/api/v1/titles/?page='
+
 let top_film_page = 1
 let adventure_film_page = 1
 let family_film_page = 1
@@ -5,7 +7,7 @@ let action_film_page = 1
 
 function get_films(source, page, category, button) {
   const films = document.getElementById(source);
-  fetch('http://127.0.0.1:8000/api/v1/titles/?page=' + page + '&page_size=7&genre=' + category + '&sort_by=-imdb_score')
+  fetch(mainUrl + page + '&page_size=7&genre=' + category + '&sort_by=-imdb_score')
     .then(response => response.json())
     .then(data => {
       data.results.forEach((titles) => {
@@ -34,7 +36,7 @@ function get_films(source, page, category, button) {
 function suggested_films(source) {
   let page = Math.floor(Math.random() * 85850);
   const films = document.getElementById(source);
-  fetch('http://127.0.0.1:8000/api/v1/titles/?page=' + page + '&page_size=1')
+  fetch(mainUrl + page + '&page_size=1')
     .then(response => response.json())
     .then(data => {
       data.results.forEach((titles) => {
