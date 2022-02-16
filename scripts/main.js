@@ -166,14 +166,12 @@ function add_click_event(div, id) {
     .then(response => response.json())
     .then(data => {
       modal.style.display = "block";
-      console.log(data);
       let text_space = document.getElementById('text_space');
       let text_div = document.createElement('div');
       text_div.className = "text_div";
       let image = document.createElement('img');
       image.src = data.image_url;
       let dl = document.createElement('dl');
-
       let titre = document.createElement('dt');
       titre.textContent = "Titre : ";
       let title = document.createElement('dd');
@@ -220,28 +218,7 @@ function add_click_event(div, id) {
       long_description.textContent = data.long_description;
       
       text_div.appendChild(image)
-      dl.appendChild(titre);
-      dl.appendChild(title);
-      dl.appendChild(category);
-      dl.appendChild(genre);
-      dl.appendChild(annee);
-      dl.appendChild(year);
-      dl.appendChild(score);
-      dl.appendChild(avg_vote);
-      dl.appendChild(score_imdb);
-      dl.appendChild(imdb_score);
-      dl.appendChild(directeurs);
-      dl.appendChild(directors);
-      dl.appendChild(acteurs);
-      dl.appendChild(actors);
-      dl.appendChild(duree);
-      dl.appendChild(duration);
-      dl.appendChild(pays);
-      dl.appendChild(countries);
-      dl.appendChild(worldwide);
-      dl.appendChild(worldwide_gross_income);
-      dl.appendChild(long_desc);
-      dl.appendChild(long_description);
+      dl.append(titre, title, category, genre, annee, year, score, avg_vote, score_imdb, imdb_score, directeurs, directors, acteurs, actors, duree, duration, pays, countries, worldwide, worldwide_gross_income, long_desc, long_description);
       text_div.appendChild(dl);
       text_space.appendChild(text_div)
     })
