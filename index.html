@@ -1,55 +1,86 @@
 <!DOCTYPE html>
 <html lang="fr">
-
+ 
     <head>
         <meta charset="utf-8">
         <title>JustStreamIt</title>
         <link rel="stylesheet" href="./styles/main.css">
         <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
     </head>
-
+ 
+    <!-- BODY -->
     <body>
+
+        <!-- HEADER -->
         <header>
             <div class="menu">
-              <a  href="index.html"><img id="logo" src="./img/logo.png" alt="logo"></a>
-              <nav>
-                <ul>
-                  <li><a href="index.html">Accueil</a></li>
-                  <li><a href="#">Catégories</a></li>
-                </ul>
-              </nav>
-            </div>
+                <a  href="index.html"><img id="logo" src="./img/logo.png" alt="logo"></a>
+                <nav>
+                    <ul>
+                    <li><a href="index.html">Accueil</a></li>
+                    <li><a href="#">Catégories</a></li>
+                    </ul>
+                </nav>
+                </div>
         </header>
         
+        <!-- SECTION -->
         <div id="content">
+
+            <!-- MODAL BOX -->
             <div id="myModal" class="modal">
                 <div id="text_space" class="modal-content">
                     <span class="close">&times;</span>
                 </div>
             </div>
             
+            <!-- BEST FILM -->
             <h2>Meilleur film :</h2>
-            <section class="category" id="suggested_films"></section>
+            <section class="category" id="suggested_films">
+            </section>
+ 
+            <!-- BEST RATED -->
             <h2>Films les mieux notés :</h2>
             <section  class="category" id="img_top_films">
-                <button id="top_films_back" class="button" onclick="top_films_back()"> &lt; </button>
-                <button id="top_films_next" class="button" onclick="top_films_next()"> &gt; </button>
+                
+                <button  class="button previous"> &lt; </button>
+                <div id="category_container"></div>
+                <button  class="button next"> &gt; </button>
             </section >
+ 
+            <!-- ADVENTURE FILM -->
             <h2>Films d'aventures :</h2>
             <section  class="category" id="img_adventure">
-                <button id="adventure_back" class="button" onclick="adventure_back()"> &lt; </button>
-                <button id="adventure_next" class="button" onclick="adventure_next()"> &gt; </button>
+                
+                <button  class="button previous"> &lt; </button>
+                <div id="category_container"></div>
+                <button class="button next"> &gt; </button>
             </section >
+ 
+            <!-- FAMILY FILM -->
             <h2>Films pour la famille :</h2>
             <section  class="category" id="img_family">
-                <button id="family_back" class="button" onclick="family_back()"> &lt; </button>
-                <button id="family_next" class="button" onclick="family_next()"> &gt; </button>
+                
+                <button class="button previous"> &lt; </button>
+                <div id="category_container"></div>
+                <button class="button next"> &gt; </button>
             </section >
+ 
+            <!-- ACTION FILM -->
             <h2>Films d'action :</h2>
             <section  class="category" id="img_action">
-                <button id="action_back" class="button" onclick="action_back()"> &lt; </button>
-                <button id="action_next" class="button" onclick="action_next()"> &gt; </button>
+                <button class="button previous"> &lt; </button>
+                <div id="category_container"></div>
+                <button class="button next"> &gt; </button>
             </section >
+
+            <!-- FOOTER -->
+            <footer>
+                <p>JustStreamIt<br>
+                Projet réalisé durant la formation Python avec OpenClassRooms</p>
+            </footer>
+
+            <!-- SCRIPT -->
             <script src="./scripts/main.js"></script>
         </div>
     </body>

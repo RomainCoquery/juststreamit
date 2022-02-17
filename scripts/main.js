@@ -1,12 +1,36 @@
 const mainUrl = 'http://127.0.0.1:8000/api/v1/titles/?page='
-
+ 
 let top_film_page = 1
 let adventure_film_page = 1
 let family_film_page = 1
 let action_film_page = 1
 
-function display_films(source, titles, button) {
-  const films = document.getElementById(source);
+// Get category list of films
+function get_films(source, page, category) {
+  fetch(mainUrl + page + '&page_size=7&genre=' + category + '&sort_by=-imdb_score')
+  .then(response => response.json())
+  .then(data => {
+    data.results.forEach((titles) => {
+        display_films(source, titles);
+    });
+  });
+}
+
+// Get category list of films random best rated
+function suggested_films(source) {
+  let page = Math.floor(Math.random() * 6);
+  fetch(mainUrl + page + '&page_size=1&sort_by=-imdb_score')
+    .then(response => response.json())
+    .then(data => {
+      data.results.forEach((titles) => {
+      display_films(source, titles);
+    });
+  });
+}
+
+// Display informations by film
+function display_films(source, titles) {
+  const films = document.getElementById(source); 
   let div = document.createElement('div');
   div.className = "container"
   let img_src = document.createElement('img');
@@ -20,144 +44,66 @@ function display_films(source, titles, button) {
   img_name.textContent = titles.title;
   img_div.appendChild(img_name)
   div.appendChild(img_div)
-  films.appendChild(div)
+  if(films.id === "suggested_films"){
+      films.appendChild(div)
+  }else{
+      films.children[1].appendChild(div)
+  }
   add_click_event(img_div, titles.id)
-
-  document.getElementById(source).appendChild(
-  document.getElementById(button)
-    );
 }
 
-function get_films(source, page, category, button) {
-  fetch(mainUrl + page + '&page_size=7&genre=' + category + '&sort_by=-imdb_score')
-    .then(response => response.json())
-    .then(data => {
-      data.results.forEach((titles) => {
-        display_films(source, titles, button);
-      });
-    });
-}
-
-function suggested_films(source) {
-  let page = Math.floor(Math.random() * 85850);
-  fetch(mainUrl + page + '&page_size=1')
-    .then(response => response.json())
-    .then(data => {
-      data.results.forEach((titles) => {
-        display_films(source, titles);
-      });
-    });
-}
-
-function next(source, page, category, button) {
-  let parent = document.getElementById(source);
-  let child = parent.getElementsByClassName("container")[0];
-  parent.removeChild(child)
-  child = parent.getElementsByClassName("container")[0];
-  parent.removeChild(child)
-  child = parent.getElementsByClassName("container")[0];
-  parent.removeChild(child)
-  child = parent.getElementsByClassName("container")[0];
-  parent.removeChild(child)
-  child = parent.getElementsByClassName("container")[0];
-  parent.removeChild(child)
-  child = parent.getElementsByClassName("container")[0];
-  parent.removeChild(child)
-  child = parent.getElementsByClassName("container")[0];
-  parent.removeChild(child)
-  get_films(source, page, category, button)
-}
-
-function back(source, page, category, button) {
-  let parent = document.getElementById(source);
-  let child = parent.getElementsByClassName("container")[0];
-  parent.removeChild(child)
-  child = parent.getElementsByClassName("container")[0];
-  parent.removeChild(child)
-  child = parent.getElementsByClassName("container")[0];
-  parent.removeChild(child)
-  child = parent.getElementsByClassName("container")[0];
-  parent.removeChild(child)
-  child = parent.getElementsByClassName("container")[0];
-  parent.removeChild(child)
-  child = parent.getElementsByClassName("container")[0];
-  parent.removeChild(child)
-  child = parent.getElementsByClassName("container")[0];
-  parent.removeChild(child)
- get_films(source, page, category, button)
-}
-
-suggested_films("suggested_films")
-get_films("img_top_films", top_film_page, "", "top_films_next")
-get_films("img_adventure", adventure_film_page, "adventure", "adventure_next")
-get_films("img_family", family_film_page, "family", "family_next")
-get_films("img_action", action_film_page, "action", "action_next")
-
-function top_films_next() {
-  top_film_page = top_film_page + 1;
-  next("img_top_films", top_film_page, "", "top_films_next")
-}
-
-function top_films_back() {
-  if (top_film_page == 1) {
-    top_film_page == 1;
+//Window listener for click next or prev button by category
+window.addEventListener('load', () => {
+  let buttons = document.getElementsByClassName('button')
+  for(let i of buttons){
+    i.addEventListener('click', e => {
+        let category = e.target.closest('.category')
+        let buttonType = e.target.className.split(' ')[1]
+        let categoryName = category.id
+        removeFilms(category.children[1])
+        handlePages(buttonType, categoryName)
+    })
   }
-  if (top_film_page > 1) {
-    top_film_page = top_film_page - 1;
-    back("img_top_films", top_film_page, "", "top_films_next")
+})
+
+// Handled pages
+function handlePages(buttonType, category){
+  switch(category){
+    case 'img_top_films':
+        top_film_page = buttonType === 'next' ? top_film_page+=1 : top_film_page === 1 ? 1 : top_film_page-=1;
+        get_films(category, top_film_page, '')
+        break;
+    case 'img_adventure':
+        adventure_film_page = buttonType === 'next' ? adventure_film_page+=1 : adventure_film_page === 1 ? 1 : adventure_film_page-=1;
+        get_films(category, adventure_film_page, 'adventure')
+        break;
+    case 'img_family':
+        family_film_page = buttonType === 'next' ? family_film_page+=1 : family_film_page === 1 ? 1 : family_film_page-=1;
+        get_films(category, family_film_page, 'family')
+        break;
+    case 'img_action':
+        action_film_page = buttonType === 'next' ? action_film_page+=1 : action_film_page === 1 ? 1 : action_film_page-=1;
+        get_films(category, action_film_page, 'action')
+        break;
+    default:
+        break;
+  }
+
+}
+
+// Remove film when click next or back
+const removeFilms = (category) =>{
+  let elementArray= new Array()
+  for(let i = 0 ; i < 7 ; i++){
+      let elementToDelete = category.children[i]
+      elementArray.push(elementToDelete)
+  }
+  for(let j of elementArray){
+      j.remove()
   }
 }
 
-function adventure_next() {
-  adventure_film_page = adventure_film_page + 1;
-  next("img_adventure", adventure_film_page, "adventure", "adventure_next")
-}
-
-function adventure_back() {
-  if (adventure_film_page == 1) {
-    adventure_film_page == 1;
-  }
-  if (adventure_film_page > 1) {
-    adventure_film_page = adventure_film_page - 1;
-    back("img_adventure", adventure_film_page, "adventure", "adventure_next")
-  }
-}
-
-function family_next() {
-  family_film_page = family_film_page + 1;
-  next("img_family", family_film_page, "family", "family_next")
-}
-
-function family_back() {
-  if (family_film_page == 1) {
-    family_film_page == 1;
-  }
-  if (family_film_page > 1) {
-    family_film_page = family_film_page - 1;
-    back("img_family", family_film_page, "family", "family_next")
-  }
-}
-
-function action_next() {
-  action_film_page = action_film_page + 1;
-  next("img_action", action_film_page, "action", "action_next")
-}
-
-function action_back() {
-  if (action_film_page == 1) {
-    action_film_page == 1;
-  }
-  if (action_film_page > 1) {
-    action_film_page = action_film_page - 1;
-    back("img_action", action_film_page, "action", "action_next")
-  }
-}
-
-let images = document.getElementsByClassName("image_overlay")
-for (const image of Object.values(images)) {
-  image.onclick = function() {}
-}
-
+// Modal window
 let modal = document.getElementById("myModal");
 function add_click_event(div, id) {
   div.onclick = function() {
@@ -244,3 +190,10 @@ window.onclick = function(event) {
     parent.removeChild(child)
   }
 }
+
+//Main function
+suggested_films("suggested_films")
+get_films("img_top_films", top_film_page, "")
+get_films("img_adventure", adventure_film_page, "adventure")
+get_films("img_family", family_film_page, "family")
+get_films("img_action", action_film_page, "action")
